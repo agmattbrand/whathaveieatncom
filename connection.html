@@ -1,1 +1,92 @@
-
+<!DOCTYPE html>
+<html>
+<head>
+    <title>What Have I Eaten - Connections</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        // Extract the invite ID from the URL
+        let path = window.location.pathname;
+        let pathParts = path.split('/');
+        let inviteId = pathParts[pathParts.length - 1];
+        
+        // Get email from query parameters
+        let params = new URLSearchParams(window.location.search);
+        let email = params.get('email') || '';
+        
+        // Construct the app URL
+        let appUrl = `whathaveieatn://connection`;
+        
+        // Redirect after a brief delay
+        window.onload = function() {
+            // Update the displayed URL
+            document.getElementById('link-display').innerText = appUrl;
+            
+            // Try to open the app
+            setTimeout(function() {
+                window.location = appUrl;
+                
+                // Show the manual button after a short delay
+                setTimeout(function() {
+                    document.getElementById('manual').style.display = 'block';
+                }, 1500);
+            }, 500);
+        };
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        #manual {
+            display: none;
+            margin-top: 30px;
+        }
+        .button {
+            display: inline-block;
+            background-color: #007AFF;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+        .code {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin-top: 20px;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Friend Invitation</h1>
+        <p>Opening What Have I Eaten app...</p>
+        
+        <div id="manual">
+            <p>If the app didn't open automatically, try these options:</p>
+            <p><a href="#" class="button" id="open-app">Open App</a></p>
+            
+            <p>Or copy this link and paste it in your browser:</p>
+            <div class="code" id="link-display"></div>
+            
+            <p>If you don't have the app yet, download it from the App Store first:</p>
+            <p><a href="https://apps.apple.com/app/your-app-id" class="button">Download App</a></p>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('open-app').onclick = function() {
+            window.location = appUrl;
+            return false;
+        };
+    </script>
+</body>
+</html>
